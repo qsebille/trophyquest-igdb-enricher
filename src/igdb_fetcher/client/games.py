@@ -6,10 +6,10 @@ from zoneinfo import ZoneInfo
 
 from requests import post
 
-from igdb_fetcher.search.constants import *
-from igdb_fetcher.search.image import get_image_url
-from igdb_fetcher.search.score import compute_candidate_score
-from igdb_fetcher.search.token import get_igdb_token
+from igdb_fetcher.client.constants import *
+from igdb_fetcher.client.image import get_image_url
+from igdb_fetcher.client.score import compute_candidate_score
+from igdb_fetcher.client.token import get_igdb_token
 
 
 def search_games(name: str, limit: int) -> list[dict[str, Any]]:
@@ -45,15 +45,24 @@ def search_games(name: str, limit: int) -> list[dict[str, Any]]:
     for game in igdb_games:
         candidate_name = game.get("name", "")
         game["score"] = compute_candidate_score(name, candidate_name)
-        image_id = game.get("cover", {}).get("image_id")
 
-        game["cover_url"] = get_image_url(image_id) if image_id else None
-        game.pop("cover", None)
+        genres = []
+        for genre in game.get("genres", []):
+            genres.append(genre.get("name", ""))
+        game["genres"] = genres
+
+        themes = []
+        for theme in game.get("themes", []):
+            themes.append(theme.get("name", ""))
+        game["themes"] = themes
+
+        cover_image = game.get("cover", {}).get("image_id")
+        game["cover"] = get_image_url(cover_image) if cover_image else None
 
         for artwork in game.get("artworks", []):
             url = get_image_url(artwork.get("image_id"), "t_720p")
-            if artwork.get("artwork_type", {}).get("id", "") == 3: game["key_art_with_logo"] = url
-            if artwork.get("artwork_type", {}).get("id", "") == 2: game["key_art_without_logo"] = url
+            if artwork.get("artwork_type", {}).get("id", "") == 3: game["artwork_with_logo"] = url
+            if artwork.get("artwork_type", {}).get("id", "") == 2: game["artwork_without_logo"] = url
         game.pop("artworks", None)
 
         screenshots = []

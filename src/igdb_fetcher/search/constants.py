@@ -1,0 +1,10 @@
+TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token"
+IGDB_BASE = "https://api.igdb.com/v4"
+
+PS4_PLATFORM_ID = 48
+PS5_PLATFORM_ID = 167
+
+# Website types
+OFFICIAL_WEBSITE_TYPE = 1
+COMMUNITY_WIKI_WEBSITE_TYPE = 2
+PLAYSTATION_WEBSITE_TYPE = 23

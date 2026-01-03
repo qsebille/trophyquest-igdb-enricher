@@ -1,6 +1,7 @@
 TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token"
 IGDB_BASE = "https://api.igdb.com/v4"
 
+PS3_PLATFORM_ID = 9
 PS4_PLATFORM_ID = 48
 PS5_PLATFORM_ID = 167
 

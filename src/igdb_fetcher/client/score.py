@@ -24,4 +24,4 @@ def compute_candidate_score(query: str, candidate: str) -> int:
     recall = intersection / len(tokens(candidate))
     f1_score = 0 if intersection == 0 else (2 * precision * recall) / (precision + recall)
 
-    return math.floor(f1_score * 100)
+    return int(math.floor(f1_score * 100))

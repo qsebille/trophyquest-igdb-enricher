@@ -1,3 +1,4 @@
+import math
 import re
 
 
@@ -13,7 +14,7 @@ def tokens(s: str) -> list[str]:
     # TODO: remove stop words
 
 
-# Calcul du score F1 (précision/rappel) de matching
+# Calcul du score F1 (précision/rappel) de matching avec floor
 def compute_candidate_score(query: str, candidate: str) -> int:
     if normalize(query) == normalize(candidate):
         return 100
@@ -23,4 +24,4 @@ def compute_candidate_score(query: str, candidate: str) -> int:
     recall = intersection / len(tokens(candidate))
     f1_score = 0 if intersection == 0 else (2 * precision * recall) / (precision + recall)
 
-    return f1_score * 100
+    return math.floor(f1_score * 100)

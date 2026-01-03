@@ -3,7 +3,7 @@ import time
 
 import requests
 
-from igdb_fetcher.search.constants import TWITCH_TOKEN_URL
+from igdb_fetcher.client.constants import TWITCH_TOKEN_URL
 
 _token = None
 _token_exp = 0
